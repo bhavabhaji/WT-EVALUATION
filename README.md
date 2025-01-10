@@ -53,8 +53,7 @@ con.connect(function(err) {
       function(err,result){
         if (err) throw err;
         console.log("Database Created");
-
-      });
+ });
 
 });
 
@@ -75,8 +74,7 @@ con.connect(function(err) {
       function(err,result){
         if (err) throw err;
         console.log("TABLE Created");
-
-      });
+ });
 
 });
 
@@ -107,8 +105,7 @@ var urlencodedParser=bodyParser.urlencoded({
 	  rr=rr+"Salesperson"+"<input type='text' name='three' value=' '>";
       rr=rr+"<input type='submit' name='t1' value='send'>";
 	  rr=rr+"</form>";
-	  
-	  //update records form
+	   //update records form
 	  rr=rr+"<h3>Update Record</h3>"
       rr=rr+ "<form method='POST' action='update'>";
       rr=rr+"Existing Customer Name: <input type='text' name='existingName' value=' ' required><br>";
@@ -116,15 +113,13 @@ var urlencodedParser=bodyParser.urlencoded({
       rr=rr+"New Salesperson: <input type='text' name='newSalesperson' value=' ' required><br>";
       rr=rr+"<input type='submit' name='t2' value='Update'>";
       rr=rr+"</form>"
-	  
 	  //delete form
 	  rr=rr+"<h3>Delete Record</h3>"
       rr=rr+"<form method='POST' action='delete'>";
       rr=rr+"Customer Name to Delete: <input type='text' name='deleteName' value=' ' required><br>";
       rr=rr+"<input type='submit' name='t3' value='Delete'><br>";
       rr=rr+"</form>";  
-	  
-	  //view records
+	   //view records
 	  rr=rr+"<h3>View Records</h3>"
       rr=rr+"<form method='GET' action='display'>";
       rr=rr+"<input type='submit' name='t4' value='View All Records'>";
@@ -144,12 +139,12 @@ var urlencodedParser=bodyParser.urlencoded({
      salesperson=req.body.three;
      var sql="insert into details(custname,city,salesperson) values('"+custname+"','"+city+"','"+salesperson+"')";
 
-    con.connect(function(err)
+ con.connect(function(err)
     {
 if(err) throw err;
 console.log("Connected");
 
-    });
+});
    con.query(sql,function(err,result)
    {
      if(err) throw err;
@@ -169,7 +164,7 @@ app.post('/update', urlencodedParser, function (req, res) {
     var newCity = req.body.newCity;
     var newSalesperson = req.body.newSalesperson;
 
-    var sql = "UPDATE details SET city = ?, salesperson = ? WHERE custname = ?";
+ var sql = "UPDATE details SET city = ?, salesperson = ? WHERE custname = ?";
     con.query(sql, [newCity, newSalesperson, existingName], function (err, result) {
         if (err) {
             res.status(500).send("Error updating record: " + err.message);
@@ -185,7 +180,7 @@ app.post('/update', urlencodedParser, function (req, res) {
 app.post('/delete', urlencodedParser, function (req, res) {
     const deleteName = req.body.deleteName;
 
-    const sql = "DELETE FROM details WHERE custname = ?";
+  const sql = "DELETE FROM details WHERE custname = ?";
     con.query(sql, [deleteName], function (err, result) {
         if (err) {
             res.status(500).send("Error deleting record: " + err.message);
@@ -205,7 +200,7 @@ app.get('/display', function (req, res) {
             res.status(500).send("Error retrieving records: " + err.message);
         } else {
             var displayHTML = `
-            <html>
+<html>
                 <body>
                     <h3>All Records</h3>
                     <table border="1">
@@ -215,9 +210,9 @@ app.get('/display', function (req, res) {
                             <th>Salesperson</th>
                         </tr>`;
 
-            results.forEach(record => {
+results.forEach(record => {
                 displayHTML += `
-                        <tr>
+			<tr>
                             <td>${record.custname}</td>
                             <td>${record.city}</td>
                             <td>${record.salesperson}</td>
